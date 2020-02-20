@@ -69,9 +69,9 @@ class RadioButtun:
 
     def draw(self):
         if self.checked:
-            self.color = (6, 82, 221)
+            self.color = (116, 185, 255)
         else:
-            self.color = (234, 32, 39)
+            self.color = (255, 118, 117)
 
         pg.draw.circle(screen, self.color, self.pos, self.raduis, 3)
 
@@ -101,14 +101,15 @@ def get_map(toponym_longitude, toponym_lattitude):
         "l": typez
     }
 
-    response = requests.get(map_api_server, params=map_params)
-    if not response:
-        print("Ошибка выполнения запроса:")
-        print("Http статус:", response.status_code, "(", response.reason, ")")
-    else:
-        with open(map_file, "wb") as file:
-            file.write(response.content)
-            Flag = True
+    if toponym_longitude and toponym_lattitude:
+        response = requests.get(map_api_server, params=map_params)
+        if not response:
+            print("Ошибка выполнения запроса:")
+            print("Http статус:", response.status_code, "(", response.reason, ")")
+        else:
+            with open(map_file, "wb") as file:
+                file.write(response.content)
+                Flag = True
 
 
 def draw_text(line, pos, fz):
